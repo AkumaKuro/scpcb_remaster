@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://du2kgw1pkvef6"]
+
+[sub_resource type="GDScript" id="GDScript_110fs"]
+script/source = "extends Node
+
+func Min(a: float, b: float) -> float:
+	if a < b:
+		return a
+	else:
+		return b
+
+var draw_col: Color = Color.BLACK
+func color(r: int, g: int, b: int) -> void:
+	draw_col = Color8(r, g, b)
+
+func KeyHit(key: int) -> int:
+	return Input.is_key_pressed(KEY_ESCAPE)
+
+var win: Window
+var canvas: Node2D = Node2D.new()
+
+func MouseX() -> int:
+	return win.get_mouse_position().x
+
+func MouseY() -> int:
+	return win.get_mouse_position().y
+
+const False = 0
+const True = 1
+
+@export var font: Font
+
+func MouseDown(key: int) -> int:
+	return Input.is_key_pressed(KEY_ESCAPE)
+
+func Rect(x: int, y: int, width: int, height: int, fill: bool = false) -> void:
+	canvas.draw_rect(Rect2i(x, y, width, height), Color.BLACK, fill)
+
+func Line (x: int,y: int,x2: int,y2: int) -> void:
+	canvas.draw_line(Vector2(x, y), Vector2(x2, y2), Color.BLACK)
+
+func Text (x: int, y: int, txt: String, a: bool, b: bool) -> void:
+	canvas.draw_string(font, Vector2(x, y), txt)
+
+func MouseHit(button: int) -> int:
+	return Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+
+
+# --- Button Function ---
+func button(x, y, width, height, txt: String, disabled: int=False) -> int:
+	var Pushed = False
+
+	color (50, 50, 50)
+	if not disabled:
+		if MouseX() > x and MouseX() < x+width:
+			if MouseY() > y and MouseY() < y+height:
+				if MouseDown(1):
+					Pushed = True
+					color (50*0.6, 50*0.6, 50*0.6)
+				else:
+					color (Min(50*1.2,255),Min(50*1.2,255),Min(50*1.2,255))
+
+	if Pushed:
+		Rect (x,y,width,height)
+		color(133,130,125)
+		Rect (x+1*MenuScale,y+1*MenuScale,width-1*MenuScale,height-1*MenuScale,False)
+		color(10,10,10)
+		Rect (x,y,width,height,False)
+		color(250,250,250)
+		Line (x,y+height-1*MenuScale,x+width-1*MenuScale,y+height-1*MenuScale)
+		Line (x+width-1*MenuScale,y,x+width-1*MenuScale,y+height-1*MenuScale)
+	else:
+		Rect (x,y,width,height)
+		color(133,130,125)
+		Rect (x,y,width-1*MenuScale,height-1*MenuScale,False)
+		color(250,250,250)
+		Rect (x,y,width,height,False)
+		color(10,10,10)
+		Line (x,y+height-1,x+width-1,y+height-1)
+		Line (x+width-1,y,x+width-1,y+height-1)
+
+	color (255,255,255)
+	if disabled:
+		color (70,70,70)
+	Text (x+width/2, y+height/2-1*MenuScale, txt, True, True)
+
+	color (0,0,0)
+
+	if Pushed and MouseHit(1):
+		return True
+	return False
+
+func Graphics (x: int, y: int, depth: int, mode: int) -> void:
+	win = Window.new()
+	win.size = Vector2i(x, y)
+	self.add_child(win)
+	win.add_child(canvas)
+
+var MenuScale
+var ButtonSFX
+
+var cur_col: Color
+func ClsColor (r: int, g: int, b: int) -> void:
+	cur_col = Color8(r, g, b)
+func Cls() -> void:
+	canvas.draw_rect(Rect2i(Vector2i.ZERO, win.size), cur_col, true)
+
+func Flip(vsync: bool) -> void:
+	await get_tree().process_frame
+
+func End() -> void:
+	get_tree().quit()
+
+func _ready() -> void:
+	# --- Globals ---
+	var MenuScale = 1
+	var ButtonSFX
+
+	# --- Main ---
+	Graphics (800, 450, 0, 2)
+
+	while not KeyHit(1):
+		ClsColor (200, 200, 200)
+		Cls()
+
+		button (100, 100, 120, 30, \"Click Me\")
+		button (100, 150, 120, 30, \"Disabled\", True)
+
+		await Flip (true)
+
+	End()
+"
+
+[node name="Node" type="Node" unique_id=1460019258]
+script = SubResource("GDScript_110fs")
