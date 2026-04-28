@@ -13,3 +13,5 @@ error_log_*
 updates/
 Thumbs.db
 *.SI
+/dot/main/obj
+/dot/main/bin
