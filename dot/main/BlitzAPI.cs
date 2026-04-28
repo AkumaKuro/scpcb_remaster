@@ -1,9 +1,9 @@
-using System.Reflection.Metadata;
+using System.Diagnostics;
 using rl = Raylib_cs;
 
 partial class Game {
-    const int TRUE = 1;
-    const int FALSE = 0;
+    const int True = 1;
+    const int False = 0;
 
     static rl.Color currentColor = rl.Color.White;
 
@@ -36,4 +36,16 @@ partial class Game {
     static int MouseY() => rl.Raylib.GetMouseY();
     static int MouseDown1() => rl.Raylib.IsMouseButtonDown(rl.MouseButton.Left) ? TRUE : FALSE;
     static int MouseHit1() => rl.Raylib.IsMouseButtonPressed(rl.MouseButton.Left) ? TRUE : FALSE;
+
+    static void RuntimeError(string text)
+    {
+        Debug.Print(text);
+        End();
+    }
+
+    static char Chr(int id)
+    {
+        return (char) id;
+    }
+
 }
