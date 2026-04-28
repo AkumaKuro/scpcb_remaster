@@ -12,3 +12,8 @@ Requirements:
 - None... the engine is now part of the repo, but for proper attribution, here is the link to the engine [repo](https://github.com/blitz-research/blitz3d_soloud)
 
 Beware - the source code is perhaps more horrifying than the game itself! (For now)
+
+How to run:
+1. Launch Blitz3D.exe from ./Engine (use Wine on Linux)
+2. Open `Main.bb`
+3. Click on the tiny rocket symbol to run the game in debug mode
