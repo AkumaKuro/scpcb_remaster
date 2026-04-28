@@ -1,6 +1,4 @@
-﻿
-
-using Raylib_cs;
+﻿using rl = Raylib_cs;
 
 partial class Game {
 
@@ -74,19 +72,19 @@ partial class Game {
             return FALSE;
         }
 
-        Raylib_cs.Raylib.InitWindow(800, 450, "Button Test");
+        Graphics(800, 450, 0, GraphicsMode.WINDOWED);
 
-        while (!Raylib_cs.Raylib.WindowShouldClose())
+        while (!(KeyHit(rl.KeyboardKey.Escape) != 0))
         {
-            Raylib_cs.Raylib.BeginDrawing();
-            Raylib_cs.Raylib.ClearBackground(Raylib_cs.Color.RayWhite);
+            ClsColor(200, 200, 200);
+            Cls();
 
             Button(100, 100, 120, 30, "Click Me");
             Button(100, 150, 120, 30, "Disabled", TRUE);
 
-            Raylib_cs.Raylib.EndDrawing();
+            Flip();
         }
 
-        Raylib_cs.Raylib.CloseWindow();
+        End();
     }
 }
