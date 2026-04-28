@@ -22,7 +22,6 @@ partial class Game {
 
         FSOUND_Init(Freq, Channels, Flags);
        
-        Include "StrictLoads.bb"
         Include "fullscreen_window_fix.bb"
         Include "KeyName.bb"
 
