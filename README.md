@@ -9,6 +9,6 @@ This game is an ongoing remaster project of the original SCP: Containment Breach
 http://creativecommons.org/licenses/by-sa/3.0/
 
 Requirements:
-•	Blitz3D v1.108
+- None... the engine is now part of the repo, but for proper attribution, here is the link to the engine [repo](https://github.com/blitz-research/blitz3d_soloud)
 
 Beware - the source code is perhaps more horrifying than the game itself! (For now)
